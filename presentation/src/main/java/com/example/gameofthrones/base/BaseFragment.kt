@@ -1,0 +1,69 @@
+package com.example.gameofthrones.base
+
+import android.os.Bundle
+import android.os.Parcelable
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.viewbinding.ViewBinding
+import com.example.gameofthrones.MainActivity
+
+abstract class BaseFragment<State: Parcelable, Transition>: Fragment() {
+
+    companion object {
+        const val STATE = "state"
+    }
+
+    // Values
+    protected abstract val viewModel: BaseViewModel<State, Transition>?
+
+    // Variables
+    lateinit var binding: ViewBinding
+    private var isInstanceSaved = false
+
+    // Override functions
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = getViewBinding(container)
+
+        return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        savedInstanceState?.getParcelable<State>(STATE)?.apply { viewModel?.loadState(this) }
+        isInstanceSaved = false
+
+        initViews()
+        initObservers()
+        initListeners()
+    }
+
+    // Private functions
+    private fun initObservers() {
+        viewModel?.getState()?.observe(viewLifecycleOwner, ::manageState)
+        viewModel?.getTransition()?.observe(viewLifecycleOwner, ::manageTransition)
+    }
+
+    private fun getMainActivity(): MainActivity? = when(activity) {
+        is MainActivity -> activity as MainActivity
+        else -> null
+    }
+
+    // Abstract functions
+    abstract fun getViewBinding(container: ViewGroup?): ViewBinding
+
+    protected abstract fun initViews()
+
+    protected abstract fun initListeners()
+
+    protected abstract fun manageState(state: State)
+
+    protected abstract fun manageTransition(transition: Transition)
+}

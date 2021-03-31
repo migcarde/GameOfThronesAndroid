@@ -98,6 +98,8 @@ android {
 }
 
 dependencies {
+    implementation project(':commons')
+    implementation project(':commons-android')
     implementation project(':data')
     implementation project(':domain')
 

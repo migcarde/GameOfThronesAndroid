@@ -1,0 +1,4 @@
+include ':commons-android'
+include ':commons'
+include ':presentation', ':data', ':domain'
+rootProject.name = "Game Of Thrones"

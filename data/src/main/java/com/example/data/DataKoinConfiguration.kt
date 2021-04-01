@@ -1,5 +1,9 @@
 package com.example.data
 
+import com.example.data.operations.categories.CategoryRemoteDataSource
+import com.example.data.operations.categories.CategoryRepositoryImpl
+import com.example.data.operations.categories.CategoryService
+import com.example.domain.operations.categories.CategoryRepository
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.JavaNetCookieJar
 import okhttp3.OkHttpClient
@@ -20,9 +24,22 @@ class DataKoinConfiguration(private val baseUrl: String) {
     }
 
     fun getModule() = module {
+        // Repository
+        single<CategoryRepository> { CategoryRepositoryImpl(get(), get()) }
+
+        // Remote data source
+        single { CategoryRemoteDataSource(get(), get()) }
+
         // Retrofit
         single { InterceptorConnection() }
         single(named("gameOfThrones")) { createOkHttpClient(get()) }
+        single(named("retrofit")) { createRetrofit(get(named("gameOfThrones"))) }
+
+        // Retrofit calls
+        single { createRetrofitImplementation<CategoryService>(get(named("retrofit"))) }
+
+        // Others
+        single { ResponseParser(get()) }
     }
 
     private fun createOkHttpClient(interceptorConnection: InterceptorConnection): OkHttpClient {

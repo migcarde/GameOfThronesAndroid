@@ -5,6 +5,8 @@ import com.example.commons.json.JsonParser
 import com.example.commons_android.system.SystemInformation
 import com.example.data.ParsedResponse
 import com.example.data.ResponseParser
+import com.example.domain.RepositoryFailure
+import com.example.domain.operations.categories.CategoriesFailure
 import com.example.domain.operations.categories.CategoryBusiness
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
@@ -19,7 +21,7 @@ class CategoryRepositoryImplTest {
     private val categoryRepositoryImpl = CategoryRepositoryImpl(categoryRemoteDataSource, systemInformation)
 
     val categoryResponse = CategoryResponse(
-        categoryName = "Test",
+        category_name = "Test",
         type = 1
     )
 
@@ -33,7 +35,7 @@ class CategoryRepositoryImplTest {
         // Given
         `when`(systemInformation.hasConnection).thenReturn(true)
 
-        val response = ParsedResponse.Success(categoryResponse)
+        val response = ParsedResponse.Success(listOf(categoryResponse))
 
         `when`(categoryRemoteDataSource.getCategories()).thenReturn(response)
 
@@ -41,7 +43,79 @@ class CategoryRepositoryImplTest {
         val result = categoryRepositoryImpl.getCategories()
 
         // Then
-        val expectedResult = Either.Right(categoryBusiness)
+        val expectedResult = Either.Right(listOf(categoryBusiness))
+
+        Assert.assertEquals(expectedResult, result)
+    }
+
+    @Test
+    fun `Get categories - Unknown`() = runBlocking {
+        // Given
+        `when`(systemInformation.hasConnection).thenReturn(true)
+
+        val response = ParsedResponse.Failure(RepositoryFailure.Unknown)
+
+        `when`(categoryRemoteDataSource.getCategories()).thenReturn(response)
+
+        // When
+        val result = categoryRepositoryImpl.getCategories()
+
+        // Then
+        val expectedResult = Either.Left(CategoriesFailure.Repository(RepositoryFailure.Unknown))
+
+        Assert.assertEquals(expectedResult, result)
+    }
+
+    @Test
+    fun `Get categories - Unauthorized`() = runBlocking {
+        // Given
+        `when`(systemInformation.hasConnection).thenReturn(true)
+
+        val response = ParsedResponse.Failure(RepositoryFailure.Unauthorized)
+
+        `when`(categoryRemoteDataSource.getCategories()).thenReturn(response)
+
+        // When
+        val result = categoryRepositoryImpl.getCategories()
+
+        // Then
+        val expectedResult = Either.Left(CategoriesFailure.Repository(RepositoryFailure.Unauthorized))
+
+        Assert.assertEquals(expectedResult, result)
+    }
+
+    @Test
+    fun `Get categories - Server error`() = runBlocking {
+        // Given
+        `when`(systemInformation.hasConnection).thenReturn(true)
+
+        val response = ParsedResponse.Failure(RepositoryFailure.ServerError)
+
+        `when`(categoryRemoteDataSource.getCategories()).thenReturn(response)
+
+        // When
+        val result = categoryRepositoryImpl.getCategories()
+
+        // Then
+        val expectedResult = Either.Left(CategoriesFailure.Repository(RepositoryFailure.ServerError))
+
+        Assert.assertEquals(expectedResult, result)
+    }
+
+    @Test
+    fun `Get categories - Know error`() = runBlocking {
+        // Given
+        `when`(systemInformation.hasConnection).thenReturn(true)
+
+        val response = ParsedResponse.KnownError(RepositoryFailure.Unknown)
+
+        `when`(categoryRemoteDataSource.getCategories()).thenReturn(response)
+
+        // When
+        val result = categoryRepositoryImpl.getCategories()
+
+        // Then
+        val expectedResult = Either.Left(CategoriesFailure.Repository(RepositoryFailure.Unknown))
 
         Assert.assertEquals(expectedResult, result)
     }

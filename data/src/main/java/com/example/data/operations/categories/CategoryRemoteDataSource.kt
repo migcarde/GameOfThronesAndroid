@@ -5,11 +5,16 @@ import com.example.data.ResponseParser
 import com.example.domain.operations.categories.CategoriesError
 import okhttp3.ResponseBody
 import retrofit2.Response
+import java.lang.Exception
 
 class CategoryRemoteDataSource(private val categoryService: CategoryService, private val responseParser: ResponseParser) {
-    suspend fun getCategories(): ParsedResponse<CategoriesError, CategoryResponse> {
-        val response: Response<ResponseBody> = categoryService.getCategories().await()
+    suspend fun getCategories(): ParsedResponse<Any, List<CategoryResponse>> {
+        try {
+            val response: Response<ResponseBody> = categoryService.getCategories().await()
 
-        return responseParser.parse(response)
+            return responseParser.parse(response)
+        } catch (e: Exception) {
+            throw e
+        }
     }
 }

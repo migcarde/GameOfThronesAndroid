@@ -10,12 +10,12 @@ import com.example.domain.operations.categories.CategoryRepository
 import java.lang.Exception
 
 class CategoryRepositoryImpl(private val categoryRemoteDataSource: CategoryRemoteDataSource, private val systemInformation: SystemInformation) : CategoryRepository {
-    override suspend fun getCategories(): Either<CategoriesFailure, CategoryBusiness> {
+    override suspend fun getCategories(): Either<CategoriesFailure, List<CategoryBusiness>> {
         return when(systemInformation.hasConnection) {
             true -> {
                 try {
                     when (val response = categoryRemoteDataSource.getCategories()) {
-                        is ParsedResponse.Success -> Either.Right(response.success.toDomain())
+                        is ParsedResponse.Success -> Either.Right(response.success.map { it.toDomain() })
                         is ParsedResponse.Failure -> Either.Left(CategoriesFailure.Repository(response.failure))
                         else -> Either.Left(CategoriesFailure.Repository(RepositoryFailure.Unknown))
                     }

@@ -7,13 +7,13 @@ import androidx.lifecycle.ViewModel
 import com.example.commons_android.SingleLiveEvent
 
 abstract class BaseViewModel<State: Parcelable, Transition>: ViewModel() {
-    protected val state = MutableLiveData<State>()
-    protected val transition = SingleLiveEvent<Transition>()
+    protected val viewState = MutableLiveData<State>()
+    protected val viewTransition = SingleLiveEvent<Transition>()
 
-    fun getState() = state as LiveData<State>
-    fun getTransition() = transition as LiveData<Transition>
+    fun getState() = viewState as LiveData<State>
+    fun getTransition() = viewTransition as LiveData<Transition>
 
     fun loadState(state: State) {
-        this.state.value = state
+        this.viewState.value = state
     }
 }

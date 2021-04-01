@@ -39,7 +39,8 @@ class CategoryRemoteDataSourceTest {
     fun `Get categories - Success`() = runBlocking {
         // Given
         val json = "test"
-        val categoryResponse = mock(CategoryResponse::class.java)
+        val mockResponse = mock(CategoryResponse::class.java)
+        val categoryResponse = listOf(mockResponse)
         val responseBody = mock(ResponseBody::class.java)
         val response: Response<ResponseBody> = mock(Response::class.java) as Response<ResponseBody>
 
@@ -48,7 +49,7 @@ class CategoryRemoteDataSourceTest {
         `when`(response.isSuccessful).thenReturn(true)
         `when`(response.body()).thenReturn(responseBody)
         `when`(categoryService.getCategories()).thenReturn(CompletableDeferred(response))
-        `when`(jsonParser.fromJson(json, CategoryResponse::class.java)).thenReturn(categoryResponse)
+        `when`(jsonParser.fromJsonList(json, CategoryResponse::class.java)).thenReturn(categoryResponse)
 
         val responseParsed = ParsedResponse.Success(categoryResponse)
 

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.viewbinding.ViewBinding
 import com.example.gameofthrones.MainActivity
 
@@ -20,7 +19,7 @@ abstract class BaseFragment<State: Parcelable, Transition>: Fragment() {
     protected abstract val viewModel: BaseViewModel<State, Transition>?
 
     // Variables
-    lateinit var binding: ViewBinding
+    lateinit var _binding: ViewBinding
     private var isInstanceSaved = false
 
     // Override functions
@@ -29,9 +28,9 @@ abstract class BaseFragment<State: Parcelable, Transition>: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = getViewBinding(container)
+        _binding = getViewBinding(container)
 
-        return binding.root
+        return _binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

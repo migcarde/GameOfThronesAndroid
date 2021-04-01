@@ -18,7 +18,7 @@ class ResponseParser(val jsonParser: JsonParser) {
     inline fun <reified KnownError : Any, reified Success> parse(
         response: Response<ResponseBody>,
         knownErrorKClasses: Map<String, KClass<out KnownError>>? = emptyMap()
-    ): ParsedResponse<KnownError, Success> = when(response.isSuccessful) {
+    ): ParsedResponse<KnownError, List<Success>> = when(response.isSuccessful) {
         true -> parseSuccess(response)
         false -> when(val either = parseError(response, knownErrorKClasses)) {
             is Either.Left -> either.l
@@ -26,9 +26,9 @@ class ResponseParser(val jsonParser: JsonParser) {
         }
     }
 
-    inline fun <reified Success> parseSuccess(response: Response<ResponseBody>): ParsedResponse.Success<Success> {
+    inline fun <reified Success> parseSuccess(response: Response<ResponseBody>): ParsedResponse.Success<List<Success>> {
         val successBody: String = response.body()!!.string()
-        val success = jsonParser.fromJson(successBody, Success::class.java)
+        val success = jsonParser.fromJsonList(successBody, Success::class.java)
 
         return ParsedResponse.Success(success)
     }

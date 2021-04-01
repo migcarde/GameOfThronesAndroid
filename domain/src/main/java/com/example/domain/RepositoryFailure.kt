@@ -2,11 +2,11 @@ package com.example.domain
 
 sealed class RepositoryFailure {
 
-    class RepositoryException(val message: String?) : RepositoryFailure()
+    object RepositoryException : RepositoryFailure()
 
     object NoInternet: RepositoryFailure()
 
-    data class Unauthorized(val error: String?) : RepositoryFailure()
+    object Unauthorized : RepositoryFailure()
 
     object ServerError : RepositoryFailure()
 

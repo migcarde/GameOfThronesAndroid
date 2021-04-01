@@ -1,6 +1,5 @@
-package com.example.data.di
+package com.example.data
 
-import com.example.data.InterceptorConnection
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.JavaNetCookieJar
 import okhttp3.OkHttpClient

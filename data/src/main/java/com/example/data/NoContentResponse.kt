@@ -1,4 +1,4 @@
-package com.example.data.remote
+package com.example.data
 
 class NoContentResponse {
 

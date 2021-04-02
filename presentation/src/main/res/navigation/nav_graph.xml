@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_categoriesFragment_to_housesFragment"
             app:destination="@id/housesFragment" />
+        <action
+            android:id="@+id/action_categoriesFragment_to_charsFragment"
+            app:destination="@id/charsFragment" />
     </fragment>
 
     <fragment
@@ -46,5 +49,11 @@
         android:name="com.example.gameofthrones.operations.houses.HousesFragment"
         android:label="HousesFragment"
         tools:layout="@layout/houses_fragment" />
+
+    <fragment
+        android:id="@+id/charsFragment"
+        android:name="com.example.gameofthrones.operations.chars.CharsFragment"
+        android:label="CharsFragment"
+        tools:layout="@layout/chars_fragment" />
 
 </navigation>

@@ -4,9 +4,11 @@
     <string name="books">Libros</string>
     <string name="houses">Casas</string>
     <string name="house_picture">Imagen de la casa</string>
+    <string name="chars">Personajes</string>
 
     <string name="houses_not_found">No se han encontrado houses</string>
     <string name="books_not_found">No se han encontrado libros</string>
+    <string name="chars_not_found">No se han encontrado personajes</string>
     <string name="no_internet_error">No dispone de conexión a internet</string>
     <string name="unknown_error">Ha ocurrido un error inesperado</string>
 </resources>

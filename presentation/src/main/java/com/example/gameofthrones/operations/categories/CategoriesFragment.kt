@@ -56,7 +56,9 @@ class CategoriesFragment : BaseFragment<CategoriesViewState, CategoriesViewTrans
             is CategoriesViewTransition.GoToHouses -> findNavController().navigate(
                 CategoriesFragmentDirections.actionCategoriesFragmentToHousesFragment()
             )
-            is CategoriesViewTransition.GoToChars -> Unit // Not implemented
+            is CategoriesViewTransition.GoToChars -> findNavController().navigate(
+                CategoriesFragmentDirections.actionCategoriesFragmentToCharsFragment()
+            )
         }
     }
 }

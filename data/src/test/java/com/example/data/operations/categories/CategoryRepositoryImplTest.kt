@@ -16,12 +16,19 @@ import org.mockito.Mockito.mock
 
 class CategoryRepositoryImplTest {
     private val categoryRemoteDataSource = mock(CategoryRemoteDataSource::class.java)
+    private val categoryLocalDataSource = mock(CategoryLocalDataSource::class.java)
     private val systemInformation: SystemInformation = mock(SystemInformation::class.java)
 
-    private val categoryRepositoryImpl = CategoryRepositoryImpl(categoryRemoteDataSource, systemInformation)
+    private val categoryRepositoryImpl =
+        CategoryRepositoryImpl(categoryRemoteDataSource, categoryLocalDataSource, systemInformation)
 
     val categoryResponse = CategoryResponse(
         category_name = "Test",
+        type = 1
+    )
+
+    val categoryEntity = CategoryEntity(
+        categoryName = "Test",
         type = 1
     )
 
@@ -79,7 +86,8 @@ class CategoryRepositoryImplTest {
         val result = categoryRepositoryImpl.getCategories()
 
         // Then
-        val expectedResult = Either.Left(CategoriesFailure.Repository(RepositoryFailure.Unauthorized))
+        val expectedResult =
+            Either.Left(CategoriesFailure.Repository(RepositoryFailure.Unauthorized))
 
         Assert.assertEquals(expectedResult, result)
     }
@@ -97,7 +105,8 @@ class CategoryRepositoryImplTest {
         val result = categoryRepositoryImpl.getCategories()
 
         // Then
-        val expectedResult = Either.Left(CategoriesFailure.Repository(RepositoryFailure.ServerError))
+        val expectedResult =
+            Either.Left(CategoriesFailure.Repository(RepositoryFailure.ServerError))
 
         Assert.assertEquals(expectedResult, result)
     }
@@ -116,6 +125,22 @@ class CategoryRepositoryImplTest {
 
         // Then
         val expectedResult = Either.Left(CategoriesFailure.Repository(RepositoryFailure.Unknown))
+
+        Assert.assertEquals(expectedResult, result)
+    }
+
+    @Test
+    fun `Get local datasource categories - Success`() = runBlocking {
+        // Given
+        val response = listOf(categoryEntity)
+
+        `when`(categoryLocalDataSource.getCategories()).thenReturn(response)
+
+        // When
+        val result = categoryRepositoryImpl.getCategories()
+
+        // Then
+        val expectedResult = Either.Right(listOf(categoryBusiness))
 
         Assert.assertEquals(expectedResult, result)
     }

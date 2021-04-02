@@ -3,7 +3,7 @@ package com.example.gameofthrones
 import android.app.Application
 import com.example.commons.di.CommonsKoinConfiguration
 import com.example.commons_android.di.CommonAndroidKoinConfiguration
-import com.example.data.DataKoinConfiguration
+import com.example.data.di.DataKoinConfiguration
 import com.example.domain.di.DomainKoinConfiguration
 import com.example.gameofthrones.di.PresentationKoinConfiguration
 import org.koin.android.ext.koin.androidContext

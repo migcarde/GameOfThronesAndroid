@@ -1,7 +1,14 @@
-package com.example.data
+package com.example.data.di
 
 import androidx.room.Room
+import com.example.data.InterceptorConnection
+import com.example.data.LocalDatabase
+import com.example.data.ResponseParser
+import com.example.data.operations.books.BookRemoteDataSource
+import com.example.data.operations.books.BookRepositoryImpl
+import com.example.data.operations.books.BookService
 import com.example.data.operations.categories.*
+import com.example.domain.operations.books.BookRepository
 import com.example.domain.operations.categories.CategoryRepository
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.JavaNetCookieJar
@@ -26,9 +33,11 @@ class DataKoinConfiguration(private val baseUrl: String) {
     fun getModule() = module {
         // Repository
         single<CategoryRepository> { CategoryRepositoryImpl(get(), get(), get()) }
+        single<BookRepository> { BookRepositoryImpl(get(), get()) }
 
         // Remote data source
         single { CategoryRemoteDataSource(get(), get()) }
+        single { BookRemoteDataSource(get(), get()) }
 
         // Local data source
         single { CategoryLocalDataSource(get()) }
@@ -40,6 +49,7 @@ class DataKoinConfiguration(private val baseUrl: String) {
 
         // Retrofit calls
         single { createRetrofitImplementation<CategoryService>(get(named("retrofit"))) }
+        single { createRetrofitImplementation<BookService>(get(named("retrofit"))) }
 
         // Others
         single { ResponseParser(get()) }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/smallDimen"
+    android:background="@drawable/shape_card"
+    android:backgroundTint="@color/card_background"
+    android:padding="@dimen/smallDimen">
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/TextView.Bold.14"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvIsbn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tinyDimen"
+        app:layout_constraintTop_toBottomOf="@id/tvName" />
+
+    <TextView
+        android:id="@+id/tvAuthors"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tinyDimen"
+        app:layout_constraintTop_toBottomOf="@id/tvIsbn" />
+
+    <TextView
+        android:id="@+id/tvNumberOfPages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tinyDimen"
+        app:layout_constraintTop_toBottomOf="@id/tvAuthors" />
+
+    <TextView
+        android:id="@+id/tvPublisher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tinyDimen"
+        app:layout_constraintTop_toBottomOf="@id/tvNumberOfPages" />
+
+    <TextView
+        android:id="@+id/tvCountry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tinyDimen"
+        app:layout_constraintTop_toBottomOf="@id/tvPublisher" />
+
+    <TextView
+        android:id="@+id/tvMediaType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tinyDimen"
+        app:layout_constraintTop_toBottomOf="@id/tvCountry" />
+
+    <TextView
+        android:id="@+id/tvReleased"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tinyDimen"
+        app:layout_constraintTop_toBottomOf="@id/tvMediaType" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

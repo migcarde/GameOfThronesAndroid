@@ -14,4 +14,9 @@ class CategoriesViewModel() : BaseViewModel<CategoriesViewState, CategoriesViewT
             data = categoriesSplashViewEntity.map { it.toPresentation() }
         }
     }
+
+    fun goTo(type: Int) = when (type) {
+        0 -> viewTransition.value = CategoriesViewTransition.GoToBooks(type)
+        else -> null // TODO: Not implemented
+    }
 }

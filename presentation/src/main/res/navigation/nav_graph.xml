@@ -26,6 +26,16 @@
             android:name="categories"
             app:argType="com.example.gameofthrones.operations.splash.SplashViewEntity[]"
             app:nullable="true" />
+
+        <action
+            android:id="@+id/action_categoriesFragment_to_booksFragment"
+            app:destination="@id/booksFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/booksFragment"
+        android:name="com.example.gameofthrones.operations.books.BooksFragment"
+        android:label="BooksFragment"
+        tools:layout="@layout/books_fragment" />
 
 </navigation>

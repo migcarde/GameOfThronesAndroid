@@ -30,6 +30,7 @@ class CategoriesAdapter(
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CategoryViewEntity) = binding.apply {
+            binding.root.setOnClickListener { onClickCategory(item.type) }
             tvTitle.text = item.categoryName
         }
     }

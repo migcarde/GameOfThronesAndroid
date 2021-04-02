@@ -40,8 +40,8 @@ class SplashFragment : BaseFragment<SplashViewState, SplashViewTransiton>() {
             )
 
             //Failure
-            is SplashViewTransiton.OnNoInternet -> Unit // Not implemented
-            else -> Unit // Not implemented
+            is SplashViewTransiton.OnNoInternet -> Unit // TODO: Not implemented
+            else -> Unit // TODO: Not implemented
         }
     }
 }

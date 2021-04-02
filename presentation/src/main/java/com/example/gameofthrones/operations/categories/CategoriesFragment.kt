@@ -1,6 +1,7 @@
 package com.example.gameofthrones.operations.categories
 
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
@@ -43,11 +44,15 @@ class CategoriesFragment : BaseFragment<CategoriesViewState, CategoriesViewTrans
         }
     }
 
-    fun goTo(type: Int) = Unit // Not implemented
+    private fun goTo(type: Int) {
+        viewModel.goTo(type)
+    }
 
     override fun manageTransition(transition: CategoriesViewTransition) {
         when (transition) {
-            is CategoriesViewTransition.GoToBooks -> Unit // Not implemented
+            is CategoriesViewTransition.GoToBooks -> findNavController().navigate(
+                CategoriesFragmentDirections.actionCategoriesFragmentToBooksFragment()
+            )
             is CategoriesViewTransition.GoToHouses -> Unit // Not implemented
             is CategoriesViewTransition.GoToChars -> Unit // Not implemented
         }

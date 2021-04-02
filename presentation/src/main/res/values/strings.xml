@@ -1,4 +1,9 @@
 <resources>
     <string name="thrones">Game of Thrones</string>
     <string name="categories">Categorías</string>
+    <string name="books">Libros</string>
+
+    <string name="books_not_found">No se han encontrado libros</string>
+    <string name="no_internet_error">No dispone de conexión a internet</string>
+    <string name="unknown_error">Ha ocurrido un error inesperado</string>
 </resources>

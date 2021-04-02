@@ -11,6 +11,21 @@
         android:label="SplashFragment"
         tools:layout="@layout/splash_fragment">
 
+        <action
+            android:id="@+id/action_splashFragment_to_categoriesFragment"
+            app:destination="@id/categoriesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.example.gameofthrones.operations.categories.CategoriesFragment"
+        android:label="CategoriesFragment"
+        tools:layout="@layout/categories_fragment">
+
+        <argument
+            android:name="categories"
+            app:argType="com.example.gameofthrones.operations.splash.SplashViewEntity[]"
+            app:nullable="true" />
     </fragment>
 
 </navigation>

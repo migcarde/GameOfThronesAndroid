@@ -3,7 +3,7 @@ package com.example.gameofthrones.operations.categories
 import com.example.gameofthrones.base.BaseViewModel
 import com.example.gameofthrones.operations.splash.SplashViewEntity
 
-class CategoryViewModel() : BaseViewModel<CategoriesViewState, CategoriesViewTransition>() {
+class CategoriesViewModel() : BaseViewModel<CategoriesViewState, CategoriesViewTransition>() {
 
     val state by lazy {
         viewState.value as? CategoriesViewState.Categories ?: CategoriesViewState.Categories()

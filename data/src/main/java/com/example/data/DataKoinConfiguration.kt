@@ -1,13 +1,13 @@
 package com.example.data
 
-import com.example.data.operations.categories.CategoryRemoteDataSource
-import com.example.data.operations.categories.CategoryRepositoryImpl
-import com.example.data.operations.categories.CategoryService
+import androidx.room.Room
+import com.example.data.operations.categories.*
 import com.example.domain.operations.categories.CategoryRepository
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.JavaNetCookieJar
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidApplication
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -25,10 +25,13 @@ class DataKoinConfiguration(private val baseUrl: String) {
 
     fun getModule() = module {
         // Repository
-        single<CategoryRepository> { CategoryRepositoryImpl(get(), get()) }
+        single<CategoryRepository> { CategoryRepositoryImpl(get(), get(), get()) }
 
         // Remote data source
         single { CategoryRemoteDataSource(get(), get()) }
+
+        // Local data source
+        single { CategoryLocalDataSource(get()) }
 
         // Retrofit
         single { InterceptorConnection() }
@@ -40,6 +43,16 @@ class DataKoinConfiguration(private val baseUrl: String) {
 
         // Others
         single { ResponseParser(get()) }
+
+        // Room
+        single {
+            Room.databaseBuilder(
+                androidApplication(),
+                LocalDatabase::class.java,
+                "game_of_thrones"
+            ).build()
+        }
+        single { get<LocalDatabase>().categoryDao() }
     }
 
     private fun createOkHttpClient(interceptorConnection: InterceptorConnection): OkHttpClient {

@@ -9,3 +9,6 @@ data class CategoryResponse(
 
 fun CategoryResponse.toDomain(): CategoryBusiness =
     CategoryBusiness(categoryName = this.category_name, type = this.type)
+
+fun CategoryResponse.toEntity(): CategoryEntity =
+    CategoryEntity(categoryName = category_name, type = type)

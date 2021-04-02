@@ -2,6 +2,7 @@ package com.example.gameofthrones.operations.splash
 
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.example.gameofthrones.base.BaseFragment
 import com.example.gameofthrones.databinding.SplashFragmentBinding
@@ -12,7 +13,8 @@ class SplashFragment : BaseFragment<SplashViewState, SplashViewTransiton>() {
     override val viewModel by viewModel<SplashViewModel>()
     private val binding get() = _binding as SplashFragmentBinding
 
-    override fun getViewBinding(container: ViewGroup?): ViewBinding = SplashFragmentBinding.inflate(layoutInflater, container, false)
+    override fun getViewBinding(container: ViewGroup?): ViewBinding =
+        SplashFragmentBinding.inflate(layoutInflater, container, false)
 
     override fun initViews() {
         viewModel.getCategories()
@@ -33,7 +35,9 @@ class SplashFragment : BaseFragment<SplashViewState, SplashViewTransiton>() {
     override fun manageTransition(transition: SplashViewTransiton) {
         when (transition) {
             // Success
-            is SplashViewTransiton.GoToCategories -> Unit // Not implemented
+            is SplashViewTransiton.GoToCategories -> findNavController().navigate(
+                SplashFragmentDirections.actionSplashFragmentToCategoriesFragment(transition.categories.toTypedArray())
+            )
 
             //Failure
             is SplashViewTransiton.OnNoInternet -> Unit // Not implemented

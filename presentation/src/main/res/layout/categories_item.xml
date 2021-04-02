@@ -4,13 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:background="@color/teal_200">
+    android:layout_marginHorizontal="@dimen/mediumDimen"
+    android:layout_marginTop="@dimen/smallDimen"
+    android:background="@drawable/shape_card"
+    android:backgroundTint="@color/card_background"
+    android:padding="@dimen/mediumDimen">
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:theme="@style/TextView.Bold.14"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Prueba" />
 

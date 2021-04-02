@@ -44,6 +44,8 @@ class CategoriesViewModelTest {
     )
 
     val TYPE_BOOKS = 0
+    val TYPE_HOUSES = 1
+    val TYPE_CHARS = 2
 
     @ExperimentalCoroutinesApi
     @Before
@@ -83,7 +85,8 @@ class CategoriesViewModelTest {
         // Given
         viewModel.getTransition().observeForever(transition)
 
-        val argumentCaptor = ArgumentCaptor.forClass(CategoriesViewTransition.GoToBooks(TYPE_BOOKS)::class.java)
+        val argumentCaptor =
+            ArgumentCaptor.forClass(CategoriesViewTransition.GoToBooks(TYPE_BOOKS)::class.java)
 
         // When
         viewModel.goTo(TYPE_BOOKS)
@@ -95,6 +98,50 @@ class CategoriesViewModelTest {
 
         Assert.assertEquals(
             CategoriesViewTransition.GoToBooks(TYPE_BOOKS),
+            currentState
+        )
+    }
+
+    @Test
+    fun `Get categories - Go to houses`() = runBlocking {
+        // Given
+        viewModel.getTransition().observeForever(transition)
+
+        val argumentCaptor =
+            ArgumentCaptor.forClass(CategoriesViewTransition.GoToHouses(TYPE_HOUSES)::class.java)
+
+        // When
+        viewModel.goTo(TYPE_HOUSES)
+
+        // Then
+        Mockito.verify(transition).onChanged(argumentCaptor.capture())
+
+        val currentState = argumentCaptor.allValues[0]
+
+        Assert.assertEquals(
+            CategoriesViewTransition.GoToHouses(TYPE_HOUSES),
+            currentState
+        )
+    }
+
+    @Test
+    fun `Get categories - Go to characters`() = runBlocking {
+        // Given
+        viewModel.getTransition().observeForever(transition)
+
+        val argumentCaptor =
+            ArgumentCaptor.forClass(CategoriesViewTransition.GoToChars(TYPE_CHARS)::class.java)
+
+        // When
+        viewModel.goTo(TYPE_CHARS)
+
+        // Then
+        Mockito.verify(transition).onChanged(argumentCaptor.capture())
+
+        val currentState = argumentCaptor.allValues[0]
+
+        Assert.assertEquals(
+            CategoriesViewTransition.GoToChars(TYPE_CHARS),
             currentState
         )
     }

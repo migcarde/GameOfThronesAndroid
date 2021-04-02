@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_categoriesFragment_to_booksFragment"
             app:destination="@id/booksFragment" />
+        <action
+            android:id="@+id/action_categoriesFragment_to_housesFragment"
+            app:destination="@id/housesFragment" />
     </fragment>
 
     <fragment
@@ -37,5 +40,11 @@
         android:name="com.example.gameofthrones.operations.books.BooksFragment"
         android:label="BooksFragment"
         tools:layout="@layout/books_fragment" />
+
+    <fragment
+        android:id="@+id/housesFragment"
+        android:name="com.example.gameofthrones.operations.houses.HousesFragment"
+        android:label="HousesFragment"
+        tools:layout="@layout/houses_fragment" />
 
 </navigation>

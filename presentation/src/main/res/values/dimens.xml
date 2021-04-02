@@ -3,4 +3,6 @@
     <dimen name="tinyDimen">4dp</dimen>
     <dimen name="smallDimen">10dp</dimen>
     <dimen name="mediumDimen">20dp</dimen>
+
+    <dimen name="house_picture_dimen">100dp</dimen>
 </resources>

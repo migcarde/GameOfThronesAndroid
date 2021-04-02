@@ -17,6 +17,7 @@ class CategoriesViewModel() : BaseViewModel<CategoriesViewState, CategoriesViewT
 
     fun goTo(type: Int) = when (type) {
         0 -> viewTransition.value = CategoriesViewTransition.GoToBooks(type)
+        1 -> viewTransition.value = CategoriesViewTransition.GoToHouses(type)
         else -> null // TODO: Not implemented
     }
 }

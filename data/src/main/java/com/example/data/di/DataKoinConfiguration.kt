@@ -8,8 +8,12 @@ import com.example.data.operations.books.BookRemoteDataSource
 import com.example.data.operations.books.BookRepositoryImpl
 import com.example.data.operations.books.BookService
 import com.example.data.operations.categories.*
+import com.example.data.operations.houses.HouseRemoteDataSource
+import com.example.data.operations.houses.HouseRepositoryImpl
+import com.example.data.operations.houses.HouseService
 import com.example.domain.operations.books.BookRepository
 import com.example.domain.operations.categories.CategoryRepository
+import com.example.domain.operations.houses.HouseRepository
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.JavaNetCookieJar
 import okhttp3.OkHttpClient
@@ -34,10 +38,12 @@ class DataKoinConfiguration(private val baseUrl: String) {
         // Repository
         single<CategoryRepository> { CategoryRepositoryImpl(get(), get(), get()) }
         single<BookRepository> { BookRepositoryImpl(get(), get()) }
+        single<HouseRepository> { HouseRepositoryImpl(get(), get()) }
 
         // Remote data source
         single { CategoryRemoteDataSource(get(), get()) }
         single { BookRemoteDataSource(get(), get()) }
+        single { HouseRemoteDataSource(get(), get()) }
 
         // Local data source
         single { CategoryLocalDataSource(get()) }
@@ -50,6 +56,7 @@ class DataKoinConfiguration(private val baseUrl: String) {
         // Retrofit calls
         single { createRetrofitImplementation<CategoryService>(get(named("retrofit"))) }
         single { createRetrofitImplementation<BookService>(get(named("retrofit"))) }
+        single { createRetrofitImplementation<HouseService>(get(named("retrofit"))) }
 
         // Others
         single { ResponseParser(get()) }

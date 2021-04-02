@@ -6,6 +6,6 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 interface HouseService {
-    @GET("/type/2")
+    @GET("/list/2")
     fun getHouses(): Deferred<Response<ResponseBody>>
 }
